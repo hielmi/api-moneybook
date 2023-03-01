@@ -24,6 +24,10 @@ const upload = require('../middleware/UploadMiddleware');
 
 const router = express.Router();
 
+router.get('/', (req, res) => {
+    res.send("Service doesnt exist in this url")
+});
+
 // auth 
 router.post('/register', registerUser);
 router.post('/login', loginUser);
