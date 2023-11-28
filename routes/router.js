@@ -8,7 +8,8 @@ const {
     fetchSaldoByIdUser,
     fetchCategoryById,
     fetchPocketById,
-    fetchTransactionById
+    fetchTransactionById,
+    backupDataByIdUser
 } = require('../controllers/UserController');
 const {
     addTransaction,
@@ -20,7 +21,6 @@ const { updateCategory, updatePocket, updateUser } = require('../controllers/Upd
 const { deleteUser, deleteCategory, deletePocket } = require('../controllers/DeleteController');
 const AuthMiddleware = require('../middleware/AuthMiddleware');
 const UploadMiddleware = require('../middleware/UploadMiddleware');
-const upload = require('../middleware/UploadMiddleware');
 
 const router = express.Router();
 
@@ -38,6 +38,7 @@ router.get('/user/saldo', AuthMiddleware, fetchSaldoByIdUser)
 router.get('/user/category', AuthMiddleware, fetchCategoryByIdUser);
 router.get('/user/transaction', AuthMiddleware, fetchTransactionByIdUser);
 router.get('/user/pocket', AuthMiddleware, fetchPocketByIdUser);
+router.get('/user/backup', AuthMiddleware, backupDataByIdUser)
 
 // getbyid
 router.get('/user/category/:id', AuthMiddleware, fetchCategoryById)

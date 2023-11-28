@@ -34,11 +34,9 @@ db.Pocket.belongsTo(Users, { foreignKey: 'idUser' })
 
 //categories
 db.Category.belongsTo(Users, { foreignKey: 'idUser' })
-db.Category.hasMany(Transaction, { foreignKey: 'idCategory' })
 
 // Transaction
 db.Transaction.belongsTo(Users, { foreignKey: 'idUser' })
-db.Transaction.belongsTo(Category, { foreignKey: 'idCategory' })
 
 
 

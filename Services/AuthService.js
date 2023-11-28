@@ -13,7 +13,7 @@ const authService = () => {
     const verify = (token) => jwt.verify(token, config.jwtSecret);
 
     const generateToken = (payload) =>
-        jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+        jwt.sign(payload, 'MONEYBOOK_APP', {
             expiresIn: 360000
         });
 

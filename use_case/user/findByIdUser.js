@@ -24,12 +24,11 @@ const findByIdUser = () => {
         })
     }
 
-    const findTransaction = (idUser, TransactionModel, CategoriesModel) => {
+    const findTransaction = (idUser, TransactionModel) => {
         return TransactionModel.findAll({
             where: {
                 idUser,
             },
-            include: [CategoriesModel]
         })
     }
 

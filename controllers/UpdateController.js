@@ -77,7 +77,6 @@ const updatePocket = (req, res, next) => {
 
 const updateUser = (req, res, next) => {
     const photoProfile = req?.file?.filename || null;
-    console.log(photoProfile);
     const { firstname, lastname } = req.body;
     return getPhotoProfileFromDatabase(req.id_user, UserModel).
         then((result) => {

@@ -26,6 +26,19 @@ const Transaction = db.define('tb_transaction', {
         type: DataTypes.DATEONLY,
         allowNull: false
     },
+    iconCategory: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    nameCategory: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    budgeting: {
+        type: DataTypes.ENUM,
+        values: ['need', 'want', 'saving', 'invest', '50/30/20', '70/10/10/10'],
+        allowNull: false,
+    },
 }, {
     timestamps: true,
     freezeTableName: true,

@@ -1,0 +1,41 @@
+[
+  {
+    "idTransaction": 1,
+    "type": "income",
+    "amount": 5000,
+    "note": "makan",
+    "date": "2023-11-03",
+    "iconCategory": "card-outline",
+    "nameCategory": "gajii",
+    "budgeting": "70/10/10/10",
+    "createdAt": "2023-11-14T12:59:09.000Z",
+    "updatedAt": "2023-11-14T12:59:09.000Z",
+    "idUser": 1
+  },
+  {
+    "idTransaction": 2,
+    "type": "income",
+    "amount": 10000,
+    "note": "Gajiii",
+    "date": "2023-11-03",
+    "iconCategory": "card-outline",
+    "nameCategory": "gajii",
+    "budgeting": "70/10/10/10",
+    "createdAt": "2023-11-14T13:11:24.000Z",
+    "updatedAt": "2023-11-14T13:11:24.000Z",
+    "idUser": 1
+  },
+  {
+    "idTransaction": 3,
+    "type": "income",
+    "amount": 100000,
+    "note": "Gajiii",
+    "date": "2023-11-03",
+    "iconCategory": "card-outline",
+    "nameCategory": "gajii",
+    "budgeting": "70/10/10/10",
+    "createdAt": "2023-11-14T13:12:44.000Z",
+    "updatedAt": "2023-11-14T13:12:44.000Z",
+    "idUser": 1
+  }
+]

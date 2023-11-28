@@ -34,7 +34,7 @@ try {
 }
 
 
-var server = app.listen(3000, process.env.NODE_ENV !== 'production' ? 'localhost' : '0.0.0.0', function () {
+var server = app.listen(4000, process.env.NODE_ENV !== 'production' ? 'localhost' : '0.0.0.0', function () {
     var host = server.address().address;
     var port = server.address().port;
     console.log('running at http://' + host + ':' + port)

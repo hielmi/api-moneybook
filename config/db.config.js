@@ -11,14 +11,12 @@
 //         idle: 10000
 //     }
 // };
-const dotenv = require('dotenv')
-dotenv.config();
 
 module.exports = {
-    HOST: process.env.HOSTDB,
-    USER: process.env.USERDB,
-    PASSWORD: process.env.PASSDB,
-    DB: process.env.DBNAME,
+    HOST: "localhost",
+    USER: "root",
+    PASSWORD: "",
+    DB: "test_moneybook",
     dialect: "mysql",
     pool: {
         max: 5,
