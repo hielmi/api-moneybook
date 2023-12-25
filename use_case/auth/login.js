@@ -1,37 +1,41 @@
-const { Op } = require('sequelize');
+const { Op } = require("sequelize");
 
-const login = (username, password, UsersModel, authService) => {
+const login = async (username, password, UsersModel, authService) => {
+  try {
     if (!username || !password) {
-        const error = new Error('email and password fields cannot be empty');
-        error.statusCode = 401;
-        throw error;
+      throw new Error("Email and password fields cannot be empty");
     }
-    return UsersModel.findAll({
-        where: {
-            [Op.or]: [
-                { username: username },
-                { email: username }
-            ]
-        }
-    }).then((user) => {
-        if (!user.length) {
-            const error = new Error("Username or email doesn't exists");
-            error.statusCode = 401;
-            throw error;
-        }
-        const isMatch = authService.compare(password, user[0].password);
-        if (!isMatch) {
-            const error = new Error('Invalid password');
-            error.statusCode = 401;
-            throw error;
-        }
-        const payload = {
-            user: {
-                id: user[0].idUser
-            }
-        };
-        return authService.generateToken(payload);
-    });
-}
 
-module.exports = login 
+    const user = await UsersModel.findOne({
+      where: {
+        [Op.or]: [{ username: username }, { email: username }],
+      },
+    });
+
+    if (!user) {
+      throw new Error("Username or email doesn't exist");
+    }
+
+    const isMatch = await authService.compare(password, user.password);
+
+    if (!isMatch) {
+      throw new Error("Invalid password");
+    }
+
+    const payload = {
+      user: {
+        id: user.idUser,
+      },
+    };
+
+    return {
+      accessToken: authService.generateAccessToken(payload),
+      refreshToken: authService.generateRefreshToken(payload),
+    };
+  } catch (error) {
+    error.statusCode = 401;
+    throw error;
+  }
+};
+
+module.exports = login;

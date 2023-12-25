@@ -6,11 +6,6 @@ const Transaction = require("../models/TransactionModel");
 
 const findByIdUser = require("../use_case/user/findByIdUser");
 const findById = require("../use_case/user/findById");
-// const backupData = require('../use_case/user/backupData');
-const fs = require("fs");
-const { promisify } = require("util");
-const { join } = require("path");
-const glob = require("glob");
 
 const fetchUserByIdUser = (req, res, next) => {
   findByIdUser()
@@ -99,12 +94,12 @@ const backupDataByIdUser = async (req, res, next) => {
     );
 
     if (!result) {
-        const notFoundError = new Error("You don't have data to backup");
-        notFoundError.statusCode = 404;
-        throw notFoundError;
-      }
-      const jsonString = JSON.stringify(result, null, 2);
-      return res.json(jsonString);
+      const notFoundError = new Error("You don't have data to backup");
+      notFoundError.statusCode = 404;
+      throw notFoundError;
+    }
+    const jsonString = JSON.stringify(result, null, 2);
+    return res.json(jsonString);
   } catch (err) {
     console.error(err);
     next(err);

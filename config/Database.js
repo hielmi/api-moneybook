@@ -1,29 +1,17 @@
-const dbConfig = require("../config/db.config.js");
+const { Sequelize } = require("sequelize");
 
-const { Sequelize } = require('sequelize');
-// const dbConfig = new Sequelize(
-//     process.env.NODE_ENV === 'production' ? 'freedb_moneybook_db' : 'dbmoneybook',
-//     process.env.NODE_ENV === 'production' ? 'freedb_hielmisulaeman' : 'root',
-//     process.env.NODE_ENV === 'production' ? '*SnQH#$aKNP9$P%' : '',
-//     {
-//         host: process.env.NODE_ENV === 'production' ? 'sql.freedb.tech' : 'localhost',
-//         dialect: 'mysql',
-//         timezone: '+07:00',
-//         logging: process.env.NODE_ENV === 'production' ? false : console.log
-//     })
+const isProduction = process.env.NODE_ENV === "production";
 
-const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
-    host: dbConfig.HOST,
-    dialect: dbConfig.dialect,
-    operatorsAliases: false,
-    port: 3306,
-    logging: true,
-    pool: {
-        max: dbConfig.pool.max,
-        min: dbConfig.pool.min,
-        acquire: dbConfig.pool.acquire,
-        idle: dbConfig.pool.idle
-    }
-});
+const dbConfig = new Sequelize(
+  isProduction ? process.env.DB_NAME : "dbmoneybook",
+  isProduction ? process.env.DB_USERNAME : "root",
+  isProduction ? process.env.DB_PASSWORD : "",
+  {
+    host: isProduction ? process.env.DB_HOST : "localhost",
+    dialect: "mysql",
+    timezone: "+07:00",
+    logging: isProduction ? false : console.log,
+  }
+);
 
-module.exports = sequelize;
+module.exports = dbConfig;
