@@ -42,6 +42,7 @@ const addCategory = (req, res, next) => {
     if (!budget.includes(budgeting)) {
       const error = new Error(`something error`);
       error.statusCode = 400;
+      error.customMessage = "Budget value is not valid";
       throw error;
     }
     add()

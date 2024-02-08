@@ -1,12 +1,11 @@
-const dotenv = require("dotenv");
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const db = require("./models/indexModel");
+const envConfig = require("./config/envConfig");
+const dbConfig = require("./config/db");
 const router = require("./routes/router");
 const ErrorHandlingMiddleware = require("./middleware/ErrorHandlingMiddleware");
 
-dotenv.config();
 const app = express();
 
 app.use(cors());
@@ -18,24 +17,19 @@ app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
 });
-app.use(router);
 
-// error handling middleware
+app.use(router);
 app.use(ErrorHandlingMiddleware);
 
-try {
-  db.dbConfig.authenticate();
+const startServer = async () => {
+  await dbConfig.authenticate();
 
-  //   run before for migrate
-  // db.dbConfig.sync({ force: true }).then(() => {
-  //   console.log("Drop and re-sync db.");
-  // });
-} catch (error) {
-  console.error("Unable to connect to the database:", error);
-}
+  const port = process.env.PORT || 4000;
+  const host = envConfig.isProduction ? "0.0.0.0" : "localhost";
 
-var server = app.listen(4000, () => {
-  var port = server.address().port;
-  const host = process.env.NODE_ENV === "production" ? "0.0.0.0" : "localhost";
-  console.log("running at http://" + host + ":" + port);
-});
+  app.listen(port, host, () => {
+    console.log(`Server is running at http://${host}:${port}`);
+  });
+};
+
+startServer();

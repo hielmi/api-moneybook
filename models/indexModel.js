@@ -1,4 +1,4 @@
-const configDB = require("../config/Database");
+const configDB = require("../config/db");
 const Sequelize = require("sequelize");
 
 // Model Table
@@ -23,25 +23,85 @@ db.Transaction = Transaction;
 
 // associations
 // user
-db.Users.hasOne(Saldo, { foreignKey: "idUser" });
-db.Users.hasMany(Pocket, { foreignKey: "idUser" });
-db.Users.hasMany(Debt, { foreignKey: "idUser" });
-db.Users.hasMany(Category, { foreignKey: "idUser" });
-db.Users.hasMany(Transaction, { foreignKey: "idUser" });
+db.Users.hasOne(Saldo, {
+  foreignKey: {
+    name: "idUser",
+    allowNull: false,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  },
+});
+db.Users.hasMany(Pocket, {
+  foreignKey: {
+    name: "idUser",
+    allowNull: false,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  },
+});
+db.Users.hasMany(Category, {
+  foreignKey: {
+    name: "idUser",
+    allowNull: false,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  },
+});
+db.Users.hasMany(Debt, {
+  foreignKey: {
+    name: "idUser",
+    allowNull: false,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  },
+});
+db.Users.hasMany(Transaction, {
+  foreignKey: {
+    name: "idUser",
+    allowNull: false,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  },
+});
 
 // saldo
-db.Saldo.belongsTo(Users, { foreignKey: "idUser" });
+db.Saldo.belongsTo(Users, {
+  foreignKey: {
+    name: "idUser",
+    allowNull: false,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  },
+});
 
 // pocket
-db.Pocket.belongsTo(Users, { foreignKey: "idUser" });
-
-// Debt
-db.Debt.belongsTo(Users, { foreignKey: "idUser" });
+db.Pocket.belongsTo(Users, {
+  foreignKey: {
+    name: "idUser",
+    allowNull: false,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  },
+});
 
 //categories
-db.Category.belongsTo(Users, { foreignKey: "idUser" });
+db.Category.belongsTo(Users, {
+  foreignKey: {
+    name: "idUser",
+    allowNull: false,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  },
+});
 
-// Transaction
-db.Transaction.belongsTo(Users, { foreignKey: "idUser" });
+// debt
+db.Debt.belongsTo(Users, {
+  foreignKey: {
+    name: "idUser",
+    allowNull: false,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  },
+});
 
 module.exports = db;
