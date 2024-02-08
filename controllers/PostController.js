@@ -3,6 +3,7 @@ const Category = require("../models/CategoryModel");
 const Transaction = require("../models/TransactionModel");
 const Saldo = require("../models/SaldoModel");
 const Pocket = require("../models/PocketModel");
+const Debt = require("../models/DebtModel");
 
 // usecase
 const getCountPocket = require("../use_case/user/getCountPocket");
@@ -86,4 +87,17 @@ const addPocket = (req, res, next) => {
     .catch((err) => next(err));
 };
 
-module.exports = { addTransaction, addCategory, addPocket };
+const addDebt = (req, res, next) => {
+  try {
+    const { name, deadline, amount } = req.body;
+
+    add()
+      .Debt(req.id_user, name, deadline, amount, Debt)
+      .then((result) => response(res, 201, result, "Succesfully added Debt"))
+      .catch((err) => next(err));
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { addTransaction, addCategory, addPocket, addDebt };

@@ -6,6 +6,9 @@ const Transaction = require("../models/TransactionModel");
 
 const findByIdUser = require("../use_case/user/findByIdUser");
 const findById = require("../use_case/user/findById");
+const restoreData = require("../use_case/user/restoreData");
+const Debt = require("../models/DebtModel");
+const { response } = require("../utils/response");
 
 const fetchUserByIdUser = (req, res, next) => {
   findByIdUser()
@@ -27,16 +30,25 @@ const fetchTransactionByIdUser = (req, res, next) => {
     .then((result) => res.json(result))
     .catch((err) => next(err));
 };
+
 const fetchCategoryByIdUser = (req, res, next) => {
   findByIdUser()
     .findCategory(req.id_user, Category)
     .then((result) => res.json(result))
     .catch((err) => next(err));
 };
+
 const fetchPocketByIdUser = (req, res, next) => {
   findByIdUser()
     .findCategory(req.id_user, Pocket)
     .then((result) => res.json(result))
+    .catch((err) => next(err));
+};
+
+const fetchDebtByIdUser = (req, res, next) => {
+  findByIdUser()
+    .findDebt(req.id_user, Debt)
+    .then((result) => response(res, 200, result, "success"))
     .catch((err) => next(err));
 };
 
@@ -85,6 +97,21 @@ const fetchTransactionById = (req, res, next) => {
     .catch((err) => next(err));
 };
 
+const fetchDebtById = (req, res, next) => {
+  const idDebt = req.params.id;
+  findById()
+    .findDebtById(req.id_user, idDebt, Debt)
+    .then((result) => {
+      if (!result) {
+        const notFoundError = new Error("Debt Doesn't Exist");
+        notFoundError.statusCode = 404;
+        throw notFoundError;
+      }
+      response(res, 200, result, "success");
+    })
+    .catch((err) => next(err));
+};
+
 const backupDataByIdUser = async (req, res, next) => {
   try {
     const result = await findByIdUser().findTransaction(
@@ -98,11 +125,31 @@ const backupDataByIdUser = async (req, res, next) => {
       notFoundError.statusCode = 404;
       throw notFoundError;
     }
-    const jsonString = JSON.stringify(result, null, 2);
-    return res.json(jsonString);
+    return res.json(result);
   } catch (err) {
     console.error(err);
     next(err);
+  }
+};
+
+const restoreDataByIdUser = async (req, res, next) => {
+  try {
+    const data = req.file.buffer.toString("utf-8");
+
+    const result = await restoreData(req.id_user, data, Transaction);
+
+    if (result) {
+      return res
+        .status(200)
+        .json({ message: "Data inserted into the database successfully" });
+    } else {
+      const error = new Error("Failed to insert data into the database");
+      error.statusCode = 400;
+      throw error;
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({ error: "Invalid JSON file" });
   }
 };
 
@@ -112,8 +159,11 @@ module.exports = {
   fetchCategoryByIdUser,
   fetchPocketByIdUser,
   fetchSaldoByIdUser,
+  fetchDebtByIdUser,
   fetchCategoryById,
   fetchPocketById,
   fetchTransactionById,
+  fetchDebtById,
   backupDataByIdUser,
+  restoreDataByIdUser,
 };

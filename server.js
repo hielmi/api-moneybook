@@ -34,12 +34,8 @@ try {
   console.error("Unable to connect to the database:", error);
 }
 
-var server = app.listen(
-  4000,
-  process.env.NODE_ENV === "production" ? "0.0.0.0" : "localhost",
-  function () {
-    var host = server.address().address;
-    var port = server.address().port;
-    console.log("running at http://" + host + ":" + port);
-  }
-);
+var server = app.listen(4000, () => {
+  var port = server.address().port;
+  const host = process.env.NODE_ENV === "production" ? "0.0.0.0" : "localhost";
+  console.log("running at http://" + host + ":" + port);
+});

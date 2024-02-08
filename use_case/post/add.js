@@ -42,7 +42,6 @@ const add = () => {
           };
 
           const category = categoryMap[budgeting];
-          console.log(category);
           if (category) {
             const decrementData = {};
             decrementData[category] = amount;
@@ -53,13 +52,14 @@ const add = () => {
         } else {
           throw "Error while adding transaction";
         }
+        const dateFormated = new Date(...date.split("-").map(Number));
 
         TransactionModel.create({
           idUser,
           type,
           amount,
           note,
-          date,
+          date: dateFormated,
           iconCategory,
           nameCategory,
           budgeting,
@@ -104,10 +104,22 @@ const add = () => {
     });
   };
 
+  const Debt = (idUser, name, deadline, amount, DebtModel) => {
+    const date = new Date(...deadline.split("-").map(Number));
+
+    return DebtModel.create({
+      name,
+      amount,
+      deadline: date,
+      idUser,
+    });
+  };
+
   return {
     Transaction,
     Category,
     Pocket,
+    Debt,
   };
 };
 
