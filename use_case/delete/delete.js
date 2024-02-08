@@ -25,13 +25,7 @@ const deleteRecord = () => {
   };
 
   const Debt = (idUser, idDebt, DebtModel) => {
-    return DebtModel.destroy({ where: { idUser, idDebt } })
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    return DebtModel.destroy({ where: { idUser, idDebt } });
   };
 
   return {

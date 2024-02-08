@@ -71,11 +71,12 @@ const deleteDebt = (req, res, next) => {
   deleteRecord()
     .Debt(req.id_user, idDebt, Debt)
     .then((result) => {
-      if (result >= 1) {
+      if (result > 0) {
         return res.json({ status: 200, message: "Successfully delete Debt" });
       } else {
         const error = new Error("Failed to delete Debt");
         error.statusCode = 400;
+        error.customMessage = "Debt does not exist";
         throw error;
       }
     })
