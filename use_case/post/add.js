@@ -52,14 +52,16 @@ const add = () => {
         } else {
           throw "Error while adding transaction";
         }
-        const dateFormated = new Date(...date.split("-").map(Number));
+        const [year, month, day] = date.split("-").map(Number);
+        const dateFormatted = new Date(year, month - 1, day);
+        console.log(`${dateFormatted} belum di formatnya ${date}`);
 
         TransactionModel.create({
           idUser,
           type,
           amount,
           note,
-          date: dateFormated,
+          date: dateFormatted,
           iconCategory,
           nameCategory,
           budgeting,
