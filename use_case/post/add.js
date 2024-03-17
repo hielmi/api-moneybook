@@ -54,7 +54,6 @@ const add = () => {
         }
         const [year, month, day] = date.split("-").map(Number);
         const dateFormatted = new Date(year, month - 1, day);
-        console.log(`${dateFormatted} belum di formatnya ${date}`);
 
         TransactionModel.create({
           idUser,
@@ -107,12 +106,13 @@ const add = () => {
   };
 
   const Debt = (idUser, name, deadline, amount, DebtModel) => {
-    const date = new Date(...deadline.split("-").map(Number));
+    const [year, month, day] = deadline.split("-").map(Number);
+    const dateFormatted = new Date(year, month - 1, day);
 
     return DebtModel.create({
       name,
       amount,
-      deadline: date,
+      deadline: dateFormatted,
       idUser,
     });
   };
