@@ -17,11 +17,17 @@ const addUser = async (
     !firstname ||
     !lastname
   ) {
-    throw new Error("Please make sure all fields are filled");
+    const error = new Error("Please make sure all fields are filled");
+    error.statusCode = 400;
+    error.customMessage = "Please make sure all fields are filled";
+    throw error;
   }
 
   if (password !== confPassword) {
-    throw new Error("Password and password confirmation don't match");
+    const error = new Error("Password and password confirmation don't match");
+    error.statusCode = 400;
+    error.customMessage = "Password and password confirmation don't match";
+    throw error;
   }
 
   try {
@@ -34,9 +40,15 @@ const addUser = async (
 
     if (existingUser) {
       if (existingUser.username === username) {
-        throw new Error(`Username '${username}' is already taken`);
+        const error = new Error(`Username '${username}' is already taken`);
+        error.statusCode = 400;
+        error.customMessage = `Username '${username}' is already taken`;
+        throw error;
       } else {
-        throw new Error(`Email '${email}' is already registered`);
+        const error = new Error(`Email '${email}' is already registered`);
+        error.statusCode = 400;
+        error.customMessage = `Email '${email}' is already registered`;
+        throw error;
       }
     }
 
@@ -50,8 +62,10 @@ const addUser = async (
     });
 
     return createdUser;
-  } catch (error) {
-    console.log("error" + error);
+  } catch (err) {
+    const error = new Error(err);
+    error.statusCode = 400;
+    error.customMessage = err;
     throw error;
   }
 };

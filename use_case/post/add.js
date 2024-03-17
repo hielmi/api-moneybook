@@ -69,6 +69,7 @@ const add = () => {
       .catch((err) => {
         const error = new Error("Error while adding transaction");
         error.statusCode = 400;
+        error.customMessage = "Error while adding transaction";
         throw error;
       });
   };
@@ -93,6 +94,8 @@ const add = () => {
       const error = new Error(
         "Amount and target field must be valid numbers, and amount cannot be larger than target"
       );
+      error.customMessage =
+        "Amount and target field must be valid numbers, and amount cannot be larger than target";
       error.statusCode = 400;
       throw error;
     }
