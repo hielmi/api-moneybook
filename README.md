@@ -10,6 +10,8 @@ Berikut Dokumentasi dari hasil REST API dapat diliat di:
 https://documenter.getpostman.com/view/20149750/2s9Ykt4JxL
 
 Note:
+- Clone repo
+- masuk ke foldernya dan install package "npm install".
 - Buat file .env dengan isi variabel:
   DB_HOST, DB_NAME, DB_USERNAME, dan DB_PASSWORD.
 - Buat folder public/images dan public/files untuk menyimpan file.
