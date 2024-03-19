@@ -13,6 +13,7 @@ Note:
 - Buat file .env dengan isi variabel:
   DB_HOST, DB_NAME, DB_USERNAME, dan DB_PASSWORD.
 - Buat folder public/images dan public/files untuk menyimpan file.
+- Lakukan migration tabel dengan perintah "npm run migrate"
 - untuk run program dapat menjalankan
   "npm run dev" untuk development
   "npm run prod" untuk production
