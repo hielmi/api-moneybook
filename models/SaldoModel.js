@@ -31,7 +31,7 @@ const Saldo = db.define(
   {
     createdAt: false,
     updatedAt: false,
-    timestamps: true,
+    timestamps: false,
     freezeTableName: true,
   }
 );

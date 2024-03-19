@@ -25,7 +25,6 @@ const addUser = async (
 
   if (password !== confPassword) {
     const error = new Error("Password and password confirmation don't match");
-    error.statusCode = 400;
     error.customMessage = "Password and password confirmation don't match";
     throw error;
   }

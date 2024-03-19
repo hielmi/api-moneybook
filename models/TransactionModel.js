@@ -43,7 +43,7 @@ const Transaction = db.define(
     },
   },
   {
-    timestamps: true,
+    timestamps: false,
     freezeTableName: true,
   }
 );

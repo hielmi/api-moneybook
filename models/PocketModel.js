@@ -25,7 +25,7 @@ const Pocket = db.define(
     },
   },
   {
-    timestamps: true,
+    timestamps: false,
     freezeTableName: true,
   }
 );
